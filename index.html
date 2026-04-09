@@ -1,349 +1,304 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hackethals Berlin — Bar & Restaurant Mitte</title>
-  <meta name="description" content="Hackethals Berlin — Bar und Restaurant in Berlin Mitte. Pflugstraße 11, 10115 Berlin. Mo–Fr ab 18:30 Uhr geöffnet.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --black: #0a0a0a; --dark: #111; --card: #161616; --border: #222;
-      --gold: #c9a96e; --gold-light: #e2c99a; --white: #f5f0e8;
-      --muted: #888; --text: #d4cfc6;
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
-
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center;
-      background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
-      backdrop-filter: blur(10px); transition: border-color 0.3s;
-      border-bottom: 1px solid transparent;
-    }
-    nav.scrolled { border-bottom-color: var(--border); }
-    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); text-decoration: none; letter-spacing: 0.05em; }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 0.6rem 1.5rem; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
-    .nav-cta:hover { background: var(--gold); color: var(--black); }
-
-    .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1800&q=85&auto=format&fit=crop') center/cover no-repeat;
-      transform: scale(1.05); transition: transform 8s ease-out;
-    }
-    .hero-bg::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.55) 50%, rgba(10,10,10,0.9) 100%);
-    }
-    .hero-content { position: relative; z-index: 1; text-align: center; max-width: 900px; padding: 0 2rem; }
-    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 1s 0.3s forwards; }
-    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(4.5rem, 11vw, 9rem); font-weight: 300; line-height: 0.95; color: var(--white); letter-spacing: -0.02em; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 1s 0.5s forwards; }
-    .hero-title em { font-style: italic; color: var(--gold); }
-    .hero-sub { font-size: 0.95rem; color: var(--muted); margin-bottom: 3rem; letter-spacing: 0.06em; opacity: 0; animation: fadeUp 1s 0.7s forwards; }
-    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s 0.9s forwards; }
-    .btn-primary { background: var(--gold); color: var(--black); padding: 0.9rem 2.5rem; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all 0.3s; }
-    .btn-primary:hover { background: var(--gold-light); }
-    .btn-ghost { border: 1px solid rgba(255,255,255,0.3); color: var(--white); padding: 0.9rem 2.5rem; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
-    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-    .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; animation: bounce 2s infinite; }
-    .hero-scroll::after { content: ''; width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); }
-
-    .stats { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .stats-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: repeat(4,1fr); }
-    .stat { text-align: center; padding: 2.5rem 1.5rem; border-right: 1px solid var(--border); }
-    .stat:last-child { border-right: none; }
-    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
-    .stat-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
-
-    .trust { padding: 2.5rem 3rem; display: flex; justify-content: center; gap: 3rem; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
-    .trust-item { display: flex; align-items: center; gap: 0.75rem; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.08em; }
-    .trust-icon { color: var(--gold); }
-
-    .section-eyebrow { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; color: var(--white); line-height: 1.1; }
-    .section-title em { font-style: italic; color: var(--gold); }
-    .gold-line { width: 60px; height: 1px; background: var(--gold); margin: 2rem auto; }
-
-    .about { padding: 9rem 3rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: center; }
-    .about-text p { font-size: 1rem; line-height: 1.85; color: var(--muted); margin-bottom: 1.5rem; }
-    .about-text p strong { color: var(--text); font-weight: 400; }
-    .about-image { position: relative; height: 560px; }
-    .about-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); }
-    .about-image::before { content: ''; position: absolute; top: -1.2rem; left: -1.2rem; right: 1.2rem; bottom: 1.2rem; border: 1px solid rgba(201,169,110,0.3); z-index: -1; }
-
-    .menu-section { padding: 9rem 3rem; background: var(--dark); }
-    .menu-inner { max-width: 1200px; margin: 0 auto; }
-    .menu-header { text-align: center; margin-bottom: 4rem; }
-    .menu-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); }
-    .menu-card { background: var(--card); padding: 2.5rem; transition: background 0.3s; }
-    .menu-card:hover { background: #1c1c1c; }
-    .menu-category { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
-    .menu-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--white); margin-bottom: 0.75rem; }
-    .menu-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.5rem; }
-    .menu-price { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); }
-
-    .quote-section { padding: 8rem 3rem; text-align: center; position: relative; overflow: hidden; }
-    .quote-section::before { content: '"'; position: absolute; top: -4rem; left: 50%; transform: translateX(-50%); font-family: 'Cormorant Garamond', serif; font-size: 22rem; color: var(--border); line-height: 1; pointer-events: none; }
-    .quote-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 300; font-style: italic; color: var(--white); max-width: 760px; margin: 0 auto 2rem; line-height: 1.4; position: relative; z-index: 1; }
-    .quote-author { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-
-    .info-section { padding: 8rem 3rem; background: var(--dark); border-top: 1px solid var(--border); }
-    .info-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem; }
-    .info-block h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--white); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-    .hours-row { display: flex; justify-content: space-between; padding: 0.65rem 0; border-bottom: 1px solid rgba(34,34,34,0.6); font-size: 0.85rem; }
-    .hours-day { color: var(--muted); }
-    .hours-time { color: var(--text); }
-    .hours-closed { color: #444; }
-    .info-text { font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin-bottom: 1rem; }
-    .info-link { color: var(--gold); text-decoration: none; font-size: 0.85rem; display: block; margin-bottom: 0.5rem; transition: opacity 0.3s; }
-    .info-link:hover { opacity: 0.7; }
-
-    .map-section { height: 380px; position: relative; overflow: hidden; }
-    .map-section iframe { width: 100%; height: 100%; border: none; filter: grayscale(100%) invert(85%) contrast(75%); opacity: 0.55; }
-    .map-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,10,0.85), transparent 35%, transparent 65%, rgba(10,10,10,0.85)); pointer-events: none; }
-
-    footer { background: var(--black); border-top: 1px solid var(--border); padding: 5rem 3rem 2.5rem; }
-    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
-    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 1rem; }
-    .footer-tagline { font-size: 0.85rem; color: var(--muted); line-height: 1.65; max-width: 300px; }
-    .footer-col h4 { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
-    .footer-col ul { list-style: none; }
-    .footer-col li { margin-bottom: 0.75rem; }
-    .footer-col a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
-    .footer-col a:hover { color: var(--text); }
-    .footer-bottom { border-top: 1px solid var(--border); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-    .footer-copy { font-size: 0.72rem; color: #444; }
-
-    .mobile-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--gold); color: var(--black); text-align: center; padding: 1rem; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; font-weight: 500; z-index: 90; }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
-    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 768px) {
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { display: none; }
-      .about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
-      .about-image { height: 350px; }
-      .menu-section { padding: 5rem 1.5rem; }
-      .menu-grid { grid-template-columns: 1fr; }
-      .stats-inner { grid-template-columns: repeat(2,1fr); }
-      .info-section { padding: 5rem 1.5rem; }
-      .info-inner { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-      .mobile-cta { display: block; }
-      body { padding-bottom: 56px; }
-      .trust { gap: 1.5rem; padding: 2rem 1.5rem; }
-      .quote-section { padding: 5rem 1.5rem; }
-      .quote-section::before { font-size: 12rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hackethals Berlin — Bar &amp; Restaurant Mitte · Pflugstraße 11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --amber:#C87D30;
+  --dark:#080806;
+  --mid:#100F0A;
+  --card:#171510;
+  --border:rgba(200,125,48,.15);
+  --text:rgba(255,255,255,.65);
+  --ff:'Cormorant Garamond',Georgia,serif;
+  --fs:'DM Sans',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:#fff;font-family:var(--fs);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{border:none;background:none;cursor:pointer;font:inherit}
+::selection{background:rgba(200,125,48,.3)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 0;transition:all .35s}
+.nav.scrolled{background:rgba(8,8,6,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:16px 0}
+.nav-inner{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px);display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:var(--ff);font-size:20px;letter-spacing:.03em}
+.nav-logo span{color:var(--amber);font-style:italic}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);transition:color .25s}
+.nav-links a:hover{color:#fff}
+.nav-res{padding:9px 22px;background:var(--amber);color:#fff!important;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;transition:all .25s}
+.nav-res:hover{background:#A5661F}
+@media(max-width:768px){.nav-links{display:none}}
+.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1800&q=85&auto=format&fit=crop') center/cover no-repeat;transform:scale(1.06);transition:transform 12s ease-out;filter:brightness(.4)}
+.hero:hover .hero-bg{transform:scale(1)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,6,.97) 0%,rgba(8,8,6,.4) 55%,rgba(8,8,6,.1) 100%)}
+.hero-content{position:relative;max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px) clamp(60px,8vh,100px);width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:20px;padding:8px 16px;border:1px solid rgba(200,125,48,.3);border-radius:2px}
+.hero-badge span{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+.hero-title{font-family:var(--ff);font-size:clamp(48px,7.5vw,104px);font-weight:300;line-height:.95;letter-spacing:-.02em;margin-bottom:24px}
+.hero-title em{font-style:italic;color:var(--amber)}
+.hero-sub{font-size:clamp(14px,1.2vw,17px);color:rgba(255,255,255,.6);max-width:480px;line-height:1.75;margin-bottom:36px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.btn-amber{padding:14px 32px;background:var(--amber);color:#fff;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:all .25s}
+.btn-amber:hover{background:#A5661F;transform:translateY(-1px)}
+.btn-ghost{padding:14px 32px;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:all .25s}
+.btn-ghost:hover{border-color:var(--amber);color:var(--amber)}
+.stat-band{background:var(--mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat-inner{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px);display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{padding:28px 20px;text-align:center;border-right:1px solid var(--border)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:var(--ff);font-size:clamp(26px,3vw,42px);font-weight:300;color:#fff;line-height:1;margin-bottom:6px}
+.stat-num span{color:var(--amber)}
+.stat-label{font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+@media(max-width:640px){.stat-inner{grid-template-columns:repeat(2,1fr)}.stat-item:nth-child(2){border-right:none}.stat-item:nth-child(3){border-right:1px solid var(--border)}}
+section{padding:clamp(80px,10vw,160px) 0}
+.section-inner{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px)}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:16px}
+.section-title{font-family:var(--ff);font-size:clamp(32px,4vw,56px);font-weight:300;line-height:1.1;letter-spacing:-.02em}
+.section-title em{font-style:italic;color:var(--amber)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.story-img img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px;filter:brightness(.75)}
+.story-text p{font-size:16px;color:var(--text);line-height:1.85;margin-bottom:20px;margin-top:20px}
+.story-facts{display:flex;flex-direction:column;gap:12px;margin-top:32px}
+.fact-row{display:flex;align-items:center;gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:2px}
+.fact-icon{font-size:18px;flex-shrink:0}
+.fact-text{font-size:14px;color:rgba(255,255,255,.7)}
+.fact-text strong{color:#fff;font-weight:500}
+@media(max-width:900px){.story-grid{grid-template-columns:1fr}}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-top:48px}
+.menu-card{background:var(--card);padding:clamp(22px,3vw,36px);position:relative;transition:background .3s}
+.menu-card:hover{background:#1E1B12}
+.menu-card::before{content:attr(data-n);position:absolute;top:14px;right:18px;font-family:var(--ff);font-size:40px;font-weight:300;color:rgba(200,125,48,.1);line-height:1}
+.menu-tag{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.menu-name{font-family:var(--ff);font-size:clamp(18px,1.8vw,24px);font-weight:400;margin-bottom:8px}
+.menu-desc{font-size:13px;color:var(--text);line-height:1.7}
+.menu-price{margin-top:14px;font-family:var(--ff);font-size:20px;color:var(--amber);font-style:italic}
+@media(max-width:900px){.menu-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.menu-grid{grid-template-columns:1fr}}
+.quote-band{background:var(--mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:clamp(48px,6vw,80px) 0}
+.quote-inner{max-width:760px;margin:0 auto;text-align:center;padding:0 clamp(20px,4vw,52px)}
+.quote-text{font-family:var(--ff);font-size:clamp(22px,3vw,36px);font-style:italic;font-weight:300;line-height:1.4;color:#fff}
+.quote-text strong{color:var(--amber);font-style:normal;font-weight:400}
+.quote-attr{margin-top:20px;font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.contact-map-wrap iframe{width:100%;height:380px;border:none;border-radius:2px;filter:grayscale(100%) invert(90%) hue-rotate(185deg) brightness(.6) contrast(1.1)}
+.contact-info{display:flex;flex-direction:column;gap:28px}
+.ci-label{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.ci-val{font-size:15px;color:rgba(255,255,255,.75);line-height:1.7}
+.ci-val a{color:rgba(255,255,255,.75);transition:color .2s}
+.ci-val a:hover{color:var(--amber)}
+.hours-grid{display:grid;grid-template-columns:auto 1fr;gap:6px 24px}
+.hours-row{font-size:14px;color:var(--text)}
+.contact-ctas{display:flex;gap:12px;flex-wrap:wrap;padding-top:8px}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr}}
+footer{background:var(--mid);border-top:1px solid var(--border);padding:40px 0}
+.footer-inner{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.footer-brand{font-family:var(--ff);font-size:20px}
+.footer-brand span{color:var(--amber);font-style:italic}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
+.mobile-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,6,.96);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:12px clamp(16px,4vw,32px);z-index:200}
+.mobile-bar-inner{display:flex;gap:10px}
+.mb-call,.mb-res{flex:1;padding:13px;text-align:center;font-size:13px;font-weight:600;letter-spacing:.05em;border-radius:2px;transition:all .2s}
+.mb-call{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.12)}
+.mb-res{background:var(--amber);color:#fff}
+@media(max-width:768px){.mobile-bar{display:block}body{padding-bottom:72px}}
+</style>
 </head>
 <body>
-
-<nav id="navbar">
-  <a href="#" class="nav-logo">Hackethals</a>
-  <ul class="nav-links">
-    <li><a href="#about">Geschichte</a></li>
-    <li><a href="#menu">Karte</a></li>
-    <li><a href="#info">Öffnungszeiten</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-  </ul>
-  <a href="#info" class="nav-cta">Reservierung</a>
-</nav>
-
-<section class="hero">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Bar & Restaurant · Berlin Mitte</div>
-    <h1 class="hero-title">Hackethals<br><em>Berlin</em></h1>
-    <p class="hero-sub">Pflugstraße 11 · 10115 Berlin · Mo – Fr ab 18:30 Uhr</p>
-    <div class="hero-actions">
-      <a href="#menu" class="btn-primary">Zur Karte</a>
-      <a href="#info" class="btn-ghost">Öffnungszeiten</a>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><span>Hackethals</span> Berlin</a>
+    <div class="nav-links">
+      <a href="#geschichte">Geschichte</a>
+      <a href="#karte">Karte</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#kontakt" class="nav-res">Reservieren</a>
     </div>
   </div>
-  <div class="hero-scroll">Scroll</div>
-</section>
-
-<div class="stats">
-  <div class="stats-inner">
-    <div class="stat"><div class="stat-num">4.7</div><div class="stat-label">Google Bewertung</div></div>
-    <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Jahre in Mitte</div></div>
-    <div class="stat"><div class="stat-num">18:30</div><div class="stat-label">Ab dieser Uhrzeit</div></div>
-    <div class="stat"><div class="stat-num">Mo–Fr</div><div class="stat-label">Geöffnet</div></div>
-  </div>
-</div>
-
-<div class="trust">
-  <div class="trust-item"><span class="trust-icon">★</span> Top Bewertungen</div>
-  <div class="trust-item"><span class="trust-icon">◎</span> Berlin Mitte</div>
-  <div class="trust-item"><span class="trust-icon">◷</span> Ab 18:30 Uhr</div>
-  <div class="trust-item"><span class="trust-icon">✓</span> Reservierung empfohlen</div>
-</div>
-
-<section class="about" id="about">
-  <div class="about-text reveal">
-    <div class="section-eyebrow">Unsere Geschichte</div>
-    <h2 class="section-title">Wo Berlin<br><em>zusammenkommt</em></h2>
-    <div class="gold-line" style="margin: 2rem 0;"></div>
-    <p>Hackethals ist ein echtes Berliner Original — eine Bar und ein Restaurant, die seit Jahren das Herz von Mitte schlagen lassen. Die Pflugstraße 11 ist kein Ort, den man zufällig betritt. Man kommt hierher, weil man weiß, was man bekommt.</p>
-    <p><strong>Ehrliche Küche. Handgemixte Drinks. Eine Atmosphäre, die zum Verweilen einlädt.</strong> Kein Schnickschnack, keine Inszenierung — nur das Wesentliche, und das in höchster Qualität.</p>
-    <p>Montag bis Freitag öffnen wir um 18:30 Uhr. Der Rest des Abends gehört dir.</p>
-    <a href="#info" class="btn-primary" style="display:inline-block; margin-top:2rem;">Tisch reservieren</a>
-  </div>
-  <div class="about-image reveal">
-    <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=900&q=85&auto=format&fit=crop" alt="Hackethals Berlin Bar" loading="lazy">
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>Bar &amp; Restaurant · Pflugstraße 11 · Berlin-Mitte</span>
+    </div>
+    <h1 class="hero-title">Hacke<br><em>thals</em></h1>
+    <p class="hero-sub">Ein echtes Berliner Original — ehrliche Küche, handgemixte Drinks, eine Atmosphäre die zum Verweilen einlädt. Seit 15+ Jahren das Herz von Mitte.</p>
+    <div class="hero-ctas">
+      <a href="#karte" class="btn-amber">Zur Karte</a>
+      <a href="#kontakt" class="btn-ghost">Reservieren</a>
+    </div>
   </div>
 </section>
-
-<section class="menu-section" id="menu">
-  <div class="menu-inner">
-    <div class="menu-header reveal">
-      <div class="section-eyebrow">Küche & Bar</div>
-      <h2 class="section-title">Die <em>Karte</em></h2>
-      <div class="gold-line"></div>
+<div class="stat-band">
+  <div class="stat-inner">
+    <div class="stat-item">
+      <div class="stat-num"><span>15</span>+</div>
+      <div class="stat-label">Jahre in Mitte</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">18<span>:30</span></div>
+      <div class="stat-label">Täglich ab</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">★<span>4.7</span></div>
+      <div class="stat-label">Google Rating</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span>Mo</span>–Fr</div>
+      <div class="stat-label">Geöffnet</div>
+    </div>
+  </div>
+</div>
+<section id="geschichte">
+  <div class="section-inner">
+    <div class="story-grid">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=85&auto=format&fit=crop" alt="Hackethals Berlin Bar">
+      </div>
+      <div class="story-text">
+        <div class="section-label">Geschichte</div>
+        <h2 class="section-title">Wo Berlin<br><em>zusammenkommt</em></h2>
+        <p>Hackethals ist ein echtes Berliner Original — eine Bar und ein Restaurant, die seit Jahren das Herz von Mitte schlagen lassen. Die Pflugstraße 11 ist kein Ort, den man zufällig betritt. Man kommt hierher, weil man weiß, was man bekommt.</p>
+        <p>Ehrliche Küche. Handgemixte Drinks. Eine Atmosphäre, die zum Verweilen einlädt. Kein Schnickschnack, keine Inszenierung — nur das Wesentliche, und das in höchster Qualität.</p>
+        <div class="story-facts">
+          <div class="fact-row">
+            <span class="fact-icon">🍸</span>
+            <span class="fact-text"><strong>Handgemixte Cocktails</strong> — klassisch und hausgemacht</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-icon">🍽</span>
+            <span class="fact-text"><strong>Ehrliche Küche</strong> — saisonal, lokal, ohne Kompromiss</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-icon">⭐</span>
+            <span class="fact-text"><strong>4.7 Google-Rating</strong> — über 15 Jahre Stammgäste</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="karte" style="padding-top:0">
+  <div class="section-inner">
+    <div style="text-align:center;margin-bottom:48px">
+      <div class="section-label">Karte</div>
+      <h2 class="section-title">Küche &amp; <em>Bar</em></h2>
+      <p style="margin-top:16px;font-size:16px;color:var(--text);max-width:520px;margin-inline:auto;line-height:1.8">Täglich frisch — ehrliche Küche ohne Schnickschnack, handgemixte Cocktails ohne Fertigmix.</p>
     </div>
     <div class="menu-grid">
-      <div class="menu-card reveal">
-        <div class="menu-category">Vorspeise</div>
+      <div class="menu-card" data-n="01">
+        <div class="menu-tag">Suppe</div>
         <div class="menu-name">Tagessuppe</div>
-        <div class="menu-desc">Täglich frisch nach Saison und Marktangebot. Fragen Sie unser Team.</div>
-        <div class="menu-price">ab 7 €</div>
+        <div class="menu-desc">Täglich frisch nach Saison und Marktangebot — fragen Sie unser Team nach dem Tagesgericht</div>
+        <div class="menu-price">ab € 7</div>
       </div>
-      <div class="menu-card reveal">
-        <div class="menu-category">Hauptgang</div>
+      <div class="menu-card" data-n="02">
+        <div class="menu-tag">Hauptgang</div>
         <div class="menu-name">Berliner Schnitzel</div>
-        <div class="menu-desc">Goldbraun gebraten, mit Bratkartoffeln und hausgemachtem Salat.</div>
-        <div class="menu-price">ab 16 €</div>
+        <div class="menu-desc">Goldbraun gebraten, mit Bratkartoffeln und hausgemachtem Salat — Berliner Hausmannskost</div>
+        <div class="menu-price">ab € 16</div>
       </div>
-      <div class="menu-card reveal">
-        <div class="menu-category">Hauptgang</div>
+      <div class="menu-card" data-n="03">
+        <div class="menu-tag">Pasta</div>
         <div class="menu-name">Pasta della Casa</div>
-        <div class="menu-desc">Selbstgemachte Pasta mit saisonaler Sauce. Täglich neu.</div>
-        <div class="menu-price">ab 14 €</div>
+        <div class="menu-desc">Selbstgemachte Pasta, wechselnde Sauce nach Markt und Saison, Parmesan, frische Kräuter</div>
+        <div class="menu-price">ab € 14</div>
       </div>
-      <div class="menu-card reveal">
-        <div class="menu-category">Bar</div>
-        <div class="menu-name">Hackethals Signature</div>
-        <div class="menu-desc">Unser Hauscocktail — klassisch zubereitet, modern interpretiert.</div>
-        <div class="menu-price">11 €</div>
+      <div class="menu-card" data-n="04">
+        <div class="menu-tag">Bar · Klassiker</div>
+        <div class="menu-name">Hackethals Sour</div>
+        <div class="menu-desc">Hauscocktail — frisch gepresste Zitrusfrüchte, Bitters, Eiweißschaum, Saison-Spirits</div>
+        <div class="menu-price">€ 12</div>
       </div>
-      <div class="menu-card reveal">
-        <div class="menu-category">Bar</div>
-        <div class="menu-name">Weine der Saison</div>
-        <div class="menu-desc">Sorgfältig kuratierte europäische Weinauswahl.</div>
-        <div class="menu-price">ab 6 € / Glas</div>
+      <div class="menu-card" data-n="05">
+        <div class="menu-tag">Bar · Signature</div>
+        <div class="menu-name">Berliner Negroni</div>
+        <div class="menu-desc">Berliner Gin, Süßwermut, Campari, Orangenzeste — gereift in der hauseigenen Eiche</div>
+        <div class="menu-price">€ 14</div>
       </div>
-      <div class="menu-card reveal">
-        <div class="menu-category">Dessert</div>
-        <div class="menu-name">Dessert du Jour</div>
-        <div class="menu-desc">Täglich wechselnd, frisch aus der Küche.</div>
-        <div class="menu-price">ab 6 €</div>
+      <div class="menu-card" data-n="06">
+        <div class="menu-tag">Dessert</div>
+        <div class="menu-name">Käseplatte</div>
+        <div class="menu-desc">Auswahl europäischer Käse, hausgemachtes Chutney, Trauben, Nüsse, Sauerteigbrot</div>
+        <div class="menu-price">€ 18</div>
       </div>
-    </div>
-    <p style="text-align:center; margin-top:2rem; color:var(--muted); font-size:0.78rem;">Vollständige Speisekarte im Restaurant. Saisonale Änderungen vorbehalten.</p>
-  </div>
-</section>
-
-<section class="quote-section">
-  <p class="quote-text reveal">"Hackethals ist kein Restaurant. Es ist ein Berliner Abend."</p>
-  <div class="quote-author">Berlin Mitte · Pflugstraße 11</div>
-</section>
-
-<section class="info-section" id="info">
-  <div class="info-inner">
-    <div class="info-block reveal">
-      <h3>Öffnungszeiten</h3>
-      <div class="hours-row"><span class="hours-day">Montag</span><span class="hours-time">18:30 – 00:00</span></div>
-      <div class="hours-row"><span class="hours-day">Dienstag</span><span class="hours-time">18:30 – 00:00</span></div>
-      <div class="hours-row"><span class="hours-day">Mittwoch</span><span class="hours-time">18:30 – 00:00</span></div>
-      <div class="hours-row"><span class="hours-day">Donnerstag</span><span class="hours-time">18:30 – 00:00</span></div>
-      <div class="hours-row"><span class="hours-day">Freitag</span><span class="hours-time">18:30 – 00:00</span></div>
-      <div class="hours-row"><span class="hours-day">Samstag</span><span class="hours-closed">Geschlossen</span></div>
-      <div class="hours-row"><span class="hours-day">Sonntag</span><span class="hours-closed">Geschlossen</span></div>
-    </div>
-    <div class="info-block reveal">
-      <h3>Kontakt & Adresse</h3>
-      <p class="info-text">Hackethals Berlin<br>Pflugstraße 11<br>10115 Berlin</p>
-      <a href="tel:[VERIFIZIEREN]" class="info-link">☎ Telefon [VERIFIZIEREN]</a>
-      <a href="mailto:info@hackethals-berlin.de" class="info-link">✉ Reservierung anfragen</a>
-      <p class="info-text" style="margin-top:1.5rem;">U-Bahn: Rosenthaler Platz (U8)<br>Tram: M8, M10</p>
-    </div>
-    <div class="info-block reveal">
-      <h3>Anfahrt</h3>
-      <p class="info-text">Im Herzen von Berlin Mitte, fußläufig vom Rosenthaler Platz. Tram-Haltestelle direkt vor der Tür.</p>
-      <p class="info-text">Reservierungen werden sehr empfohlen, besonders Do & Fr.</p>
-      <a href="https://maps.google.com/?q=Pflugstraße+11,+10115+Berlin" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-block;margin-top:1.5rem;">Google Maps öffnen</a>
     </div>
   </div>
 </section>
-
-<div class="map-section" id="kontakt">
-  <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=13.380,52.525,13.405,52.540&layer=mapnik&marker=52.5283,13.3925" title="Hackethals Berlin Standort" loading="lazy"></iframe>
-  <div class="map-overlay"></div>
+<div class="quote-band">
+  <div class="quote-inner">
+    <p class="quote-text">„Kein Schnickschnack, keine Inszenierung — nur das <strong>Wesentliche</strong>, in höchster Qualität."</p>
+    <p class="quote-attr">— Hackethals Berlin · Pflugstraße 11 · Berlin-Mitte</p>
+  </div>
 </div>
-
+<section id="kontakt">
+  <div class="section-inner">
+    <div style="margin-bottom:48px">
+      <div class="section-label">Kontakt &amp; Reservierung</div>
+      <h2 class="section-title">Besuchen Sie <em>uns</em></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.2!2d13.3866!3d52.5265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e2d7de7f8d9%3A0x1!2sPflugstra%C3%9Fe+11%2C+10115+Berlin!5e0!3m2!1sde!2sde!4v1" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <div class="contact-info">
+        <div>
+          <div class="ci-label">Adresse</div>
+          <div class="ci-val">Pflugstraße 11<br>10115 Berlin-Mitte</div>
+        </div>
+        <div>
+          <div class="ci-label">Öffnungszeiten</div>
+          <div class="hours-grid">
+            <div class="hours-row">Mo – Fr</div><div class="hours-row">ab 18:30 Uhr</div>
+            <div class="hours-row">Sa – So</div><div class="hours-row">Ruhetag</div>
+          </div>
+        </div>
+        <div>
+          <div class="ci-label">Reservierung</div>
+          <div class="ci-val">Empfohlen — besonders Do/Fr</div>
+        </div>
+        <div class="contact-ctas">
+          <a href="#karte" class="btn-amber">Zur Karte</a>
+          <a href="https://maps.google.com/?q=Pflugstrasse+11+Berlin" target="_blank" class="btn-ghost">Anfahrt</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <footer>
   <div class="footer-inner">
-    <div>
-      <div class="footer-brand">Hackethals</div>
-      <p class="footer-tagline">Bar & Restaurant in Berlin Mitte. Abends geöffnet — immer ein guter Grund vorbeizukommen.</p>
+    <div class="footer-brand"><span>Hackethals</span> Berlin</div>
+    <div class="footer-links">
+      <a href="#geschichte">Geschichte</a>
+      <a href="#karte">Karte</a>
+      <a href="#kontakt">Kontakt</a>
     </div>
-    <div class="footer-col">
-      <h4>Navigation</h4>
-      <ul>
-        <li><a href="#about">Geschichte</a></li>
-        <li><a href="#menu">Speisekarte</a></li>
-        <li><a href="#info">Öffnungszeiten</a></li>
-        <li><a href="#kontakt">Anfahrt</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Kontakt</h4>
-      <ul>
-        <li><a href="#">Pflugstraße 11</a></li>
-        <li><a href="#">10115 Berlin</a></li>
-        <li><a href="#">Berlin Mitte</a></li>
-        <li><a href="mailto:info@hackethals-berlin.de">Reservierung</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2025 Hackethals Berlin. Alle Rechte vorbehalten.</span>
-    <span class="footer-copy">Impressum · Datenschutz</span>
+    <div class="footer-copy">&copy; 2026 Hackethals · Pflugstraße 11 · 10115 Berlin</div>
   </div>
 </footer>
-
-<a href="mailto:info@hackethals-berlin.de" class="mobile-cta">Tisch reservieren</a>
-
+<div class="mobile-bar">
+  <div class="mobile-bar-inner">
+    <a href="https://maps.google.com/?q=Pflugstrasse+11+Berlin" target="_blank" class="mb-call">Anfahrt</a>
+    <a href="#karte" class="mb-res">Zur Karte</a>
+  </div>
+</div>
 <script>
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
-
-  const heroBg = document.getElementById('heroBg');
-  window.addEventListener('scroll', () => {
-    heroBg.style.transform = `scale(1.05) translateY(${window.scrollY * 0.25}px)`;
-  }, { passive: true });
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  window.addEventListener('load', () => {
-    document.querySelector('.hero-bg').style.transform = 'scale(1)';
-  });
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, {passive: true});
 </script>
 </body>
 </html>
