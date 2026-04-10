@@ -1,457 +1,698 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hackethals Berlin — Bar &amp; Restaurant Mitte · Pflugstraße 11</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --amber:#C87D30;
-  --dark:#080806;
-  --mid:#100F0A;
-  --card:#171510;
-  --border:rgba(200,125,48,.15);
-  --text:rgba(255,255,255,.65);
-  --ff:'Cormorant Garamond',Georgia,serif;
-  --fs:'DM Sans',sans-serif;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--dark);color:#fff;font-family:var(--fs);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
-img{display:block;max-width:100%}
-button{border:none;background:none;cursor:pointer;font:inherit}
-::selection{background:rgba(200,125,48,.3)}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 0;transition:all .35s}
-.nav.scrolled{background:rgba(8,8,6,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:16px 0}
-.nav-inner{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px);display:flex;justify-content:space-between;align-items:center}
-.nav-logo{font-family:var(--ff);font-size:20px;letter-spacing:.03em}
-.nav-logo span{color:var(--amber);font-style:italic}
-.nav-links{display:flex;gap:36px;align-items:center}
-.nav-links a{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);transition:color .25s}
-.nav-links a:hover{color:#fff}
-.nav-res{padding:9px 22px;background:var(--amber);color:#fff!important;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;transition:all .25s}
-.nav-res:hover{background:#A5661F}
-@media(max-width:768px){.nav-links{display:none}}
-.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1800&q=85&auto=format&fit=crop') center/cover no-repeat;transform:scale(1.06);transition:transform 12s ease-out;filter:brightness(.4)}
-.hero:hover .hero-bg{transform:scale(1)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,6,.97) 0%,rgba(8,8,6,.4) 55%,rgba(8,8,6,.1) 100%)}
-.hero-content{position:relative;max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px) clamp(60px,8vh,100px);width:100%}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:20px;padding:8px 16px;border:1px solid rgba(200,125,48,.3);border-radius:2px}
-.hero-badge span{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
-.hero-title{font-family:var(--ff);font-size:clamp(48px,7.5vw,104px);font-weight:300;line-height:.95;letter-spacing:-.02em;margin-bottom:24px}
-.hero-title em{font-style:italic;color:var(--amber)}
-.hero-sub{font-size:clamp(14px,1.2vw,17px);color:rgba(255,255,255,.6);max-width:480px;line-height:1.75;margin-bottom:36px}
-.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
-.btn-amber{padding:14px 32px;background:var(--amber);color:#fff;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:all .25s}
-.btn-amber:hover{background:#A5661F;transform:translateY(-1px)}
-.btn-ghost{padding:14px 32px;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:all .25s}
-.btn-ghost:hover{border-color:var(--amber);color:var(--amber)}
-.stat-band{background:var(--mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.stat-inner{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px);display:grid;grid-template-columns:repeat(4,1fr)}
-.stat-item{padding:28px 20px;text-align:center;border-right:1px solid var(--border)}
-.stat-item:last-child{border-right:none}
-.stat-num{font-family:var(--ff);font-size:clamp(26px,3vw,42px);font-weight:300;color:#fff;line-height:1;margin-bottom:6px}
-.stat-num span{color:var(--amber)}
-.stat-label{font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35)}
-@media(max-width:640px){.stat-inner{grid-template-columns:repeat(2,1fr)}.stat-item:nth-child(2){border-right:none}.stat-item:nth-child(3){border-right:1px solid var(--border)}}
-section{padding:clamp(80px,10vw,160px) 0}
-.section-inner{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px)}
-.section-label{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:16px}
-.section-title{font-family:var(--ff);font-size:clamp(32px,4vw,56px);font-weight:300;line-height:1.1;letter-spacing:-.02em}
-.section-title em{font-style:italic;color:var(--amber)}
-.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.story-img img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px;filter:brightness(.75)}
-.story-text p{font-size:16px;color:var(--text);line-height:1.85;margin-bottom:20px;margin-top:20px}
-.story-facts{display:flex;flex-direction:column;gap:12px;margin-top:32px}
-.fact-row{display:flex;align-items:center;gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:2px}
-.fact-icon{font-size:18px;flex-shrink:0}
-.fact-text{font-size:14px;color:rgba(255,255,255,.7)}
-.fact-text strong{color:#fff;font-weight:500}
-@media(max-width:900px){.story-grid{grid-template-columns:1fr}}
-.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-top:48px}
-.menu-card{background:var(--card);padding:clamp(22px,3vw,36px);position:relative;transition:background .3s}
-.menu-card:hover{background:#1E1B12}
-.menu-card::before{content:attr(data-n);position:absolute;top:14px;right:18px;font-family:var(--ff);font-size:40px;font-weight:300;color:rgba(200,125,48,.1);line-height:1}
-.menu-tag{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
-.menu-name{font-family:var(--ff);font-size:clamp(18px,1.8vw,24px);font-weight:400;margin-bottom:8px}
-.menu-desc{font-size:13px;color:var(--text);line-height:1.7}
-.menu-price{margin-top:14px;font-family:var(--ff);font-size:20px;color:var(--amber);font-style:italic}
-@media(max-width:900px){.menu-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.menu-grid{grid-template-columns:1fr}}
-.quote-band{background:var(--mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:clamp(48px,6vw,80px) 0}
-.quote-inner{max-width:760px;margin:0 auto;text-align:center;padding:0 clamp(20px,4vw,52px)}
-.quote-text{font-family:var(--ff);font-size:clamp(22px,3vw,36px);font-style:italic;font-weight:300;line-height:1.4;color:#fff}
-.quote-text strong{color:var(--amber);font-style:normal;font-weight:400}
-.quote-attr{margin-top:20px;font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.28)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
-.contact-map-wrap iframe{width:100%;height:380px;border:none;border-radius:2px;filter:grayscale(100%) invert(90%) hue-rotate(185deg) brightness(.6) contrast(1.1)}
-.contact-info{display:flex;flex-direction:column;gap:28px}
-.ci-label{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
-.ci-val{font-size:15px;color:rgba(255,255,255,.75);line-height:1.7}
-.ci-val a{color:rgba(255,255,255,.75);transition:color .2s}
-.ci-val a:hover{color:var(--amber)}
-.hours-grid{display:grid;grid-template-columns:auto 1fr;gap:6px 24px}
-.hours-row{font-size:14px;color:var(--text)}
-.contact-ctas{display:flex;gap:12px;flex-wrap:wrap;padding-top:8px}
-@media(max-width:900px){.contact-grid{grid-template-columns:1fr}}
-footer{background:var(--mid);border-top:1px solid var(--border);padding:40px 0}
-.footer-inner{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,52px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-.footer-brand{font-family:var(--ff);font-size:20px}
-.footer-brand span{color:var(--amber);font-style:italic}
-.footer-links{display:flex;gap:24px}
-.footer-links a{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);transition:color .2s}
-.footer-links a:hover{color:#fff}
-.footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
-.mobile-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,6,.96);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:12px clamp(16px,4vw,32px);z-index:200}
-.mobile-bar-inner{display:flex;gap:10px}
-.mb-call,.mb-res{flex:1;padding:13px;text-align:center;font-size:13px;font-weight:600;letter-spacing:.05em;border-radius:2px;transition:all .2s}
-.mb-call{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.12)}
-.mb-res{background:var(--amber);color:#fff}
-@media(max-width:768px){.mobile-bar{display:block}body{padding-bottom:72px}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackethal's | Gaststätte &middot; Bar &middot; Wohnzimmer — Berlin</title>
+    <meta name="description" content="Hackethal's Berlin - Gaststätte, Bar und Wohnzimmer in Berlin Mitte. Deutsche Küche in gemütlicher Atmosphäre, Pflugstraße 11.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-.animate-on-scroll{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
-.animate-on-scroll.animate-in{opacity:1;transform:translateY(0)}
-.animate-on-scroll:nth-child(2){transition-delay:.1s}
-.animate-on-scroll:nth-child(3){transition-delay:.2s}
-.animate-on-scroll:nth-child(4){transition-delay:.3s}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.gallery-item{aspect-ratio:4/3;border-radius:var(--radius,12px);overflow:hidden;cursor:pointer;position:relative}
-.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.gallery-item:hover img{transform:scale(1.08)}
-.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.review-card{padding:32px;border-radius:var(--radius,12px);position:relative}
-.review-stars{color:#F59E0B;font-size:1.1rem;margin-bottom:12px;letter-spacing:2px}
-.review-text{font-size:.95rem;line-height:1.7;margin-bottom:16px;font-style:italic}
-.review-author{font-weight:600;font-size:.9rem}
-.review-source{font-size:.8rem;opacity:.6;margin-top:2px}
-@media(max-width:768px){.gallery-grid{grid-template-columns:repeat(2,1fr)}.reviews-grid{grid-template-columns:1fr}}
-</style>
+        :root {
+            --bg-primary: #0A0908;
+            --bg-secondary: #11100E;
+            --bg-tertiary: #191715;
+            --accent: #6B1D2A;
+            --accent-light: #8A2F42;
+            --accent-warm: #A64258;
+            --warm: #C4956A;
+            --warm-light: #D4AA83;
+            --text-primary: #EAE3D8;
+            --text-secondary: #ACA49A;
+            --text-muted: #6E6760;
+            --border: rgba(196, 149, 106, 0.1);
+            --border-hover: rgba(196, 149, 106, 0.25);
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .nav {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            padding: 1.5rem 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(10,9,8,0.96);
+            backdrop-filter: blur(20px);
+            padding: 1rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem; font-weight: 400;
+            color: var(--warm);
+            text-decoration: none; letter-spacing: 0.1em;
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+        .nav-links a {
+            color: var(--text-secondary); text-decoration: none;
+            font-size: 0.78rem; letter-spacing: 0.12em;
+            text-transform: uppercase; font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--warm); }
+
+        .nav-toggle {
+            display: none; flex-direction: column; gap: 5px;
+            cursor: pointer; background: none; border: none;
+        }
+
+        .nav-toggle span { width: 24px; height: 1.5px; background: var(--warm); }
+
+        /* Hero */
+        .hero {
+            position: relative; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&q=80') center/cover no-repeat;
+        }
+
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(10,9,8,0.45) 0%, rgba(10,9,8,0.6) 50%, rgba(10,9,8,0.97) 100%);
+        }
+
+        .hero-content {
+            position: relative; z-index: 2;
+            max-width: 800px; padding: 0 2rem;
+        }
+
+        .hero-tagline {
+            font-size: 0.72rem; letter-spacing: 0.3em;
+            text-transform: uppercase; color: var(--warm);
+            margin-bottom: 2rem; display: block;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 300; line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title em { font-style: italic; color: var(--accent-warm); }
+
+        .hero-subtitle {
+            font-size: 1rem; color: var(--text-secondary);
+            font-weight: 300; max-width: 500px;
+            margin: 0 auto 2.5rem; line-height: 1.9;
+        }
+
+        .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn-warm {
+            display: inline-block; padding: 1rem 2.5rem;
+            background: var(--warm); color: var(--bg-primary);
+            text-decoration: none; font-size: 0.73rem;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            font-weight: 600; transition: all 0.4s ease;
+            border: 1px solid var(--warm);
+        }
+
+        .btn-warm:hover { background: var(--warm-light); }
+
+        .btn-ghost {
+            display: inline-block; padding: 1rem 2.5rem;
+            border: 1px solid var(--warm); color: var(--warm);
+            text-decoration: none; font-size: 0.73rem;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            font-weight: 500; transition: all 0.4s ease;
+        }
+
+        .btn-ghost:hover { background: rgba(196,149,106,0.1); }
+
+        section { padding: 8rem 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .section-label {
+            font-size: 0.68rem; letter-spacing: 0.25em;
+            text-transform: uppercase; color: var(--warm);
+            margin-bottom: 1.5rem; font-weight: 500;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem;
+        }
+
+        .section-text {
+            color: var(--text-secondary); max-width: 580px;
+            line-height: 1.9; font-weight: 300; font-size: 0.95rem;
+        }
+
+        .accent-line {
+            width: 50px; height: 1px;
+            background: linear-gradient(to right, var(--accent-warm), var(--warm));
+            margin: 2.5rem 0;
+        }
+
+        .accent-line-center { margin-left: auto; margin-right: auto; }
+
+        /* Wohnzimmer / About */
+        .wohnzimmer { background: var(--bg-secondary); }
+
+        .wohnzimmer-grid {
+            display: grid; grid-template-columns: 1.1fr 1fr;
+            gap: 5rem; align-items: center;
+        }
+
+        .wohnzimmer-image {
+            aspect-ratio: 4/5; overflow: hidden;
+            position: relative;
+        }
+
+        .wohnzimmer-image img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .wohnzimmer-image:hover img { transform: scale(1.03); }
+
+        .wohnzimmer-image::before {
+            content: ''; position: absolute;
+            top: -6px; left: -6px;
+            width: 50px; height: 50px;
+            border-top: 1px solid var(--warm);
+            border-left: 1px solid var(--warm);
+            z-index: 1;
+        }
+
+        .wohnzimmer-image::after {
+            content: ''; position: absolute;
+            bottom: -6px; right: -6px;
+            width: 50px; height: 50px;
+            border-bottom: 1px solid var(--warm);
+            border-right: 1px solid var(--warm);
+        }
+
+        /* Drei Säulen */
+        .drei-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem; margin-top: 4rem;
+        }
+
+        .drei-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drei-card::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(to right, transparent, var(--accent-warm), transparent);
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+
+        .drei-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+        .drei-card:hover::after { opacity: 1; }
+
+        .drei-card-icon { font-size: 2.5rem; margin-bottom: 1.2rem; display: block; }
+
+        .drei-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem; font-weight: 400;
+            margin-bottom: 0.8rem; color: var(--warm-light);
+        }
+
+        .drei-card p {
+            color: var(--text-secondary); font-size: 0.88rem;
+            line-height: 1.8; font-weight: 300;
+        }
+
+        /* Speisekarte */
+        .karte { background: var(--bg-secondary); }
+
+        .karte-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 3rem; margin-top: 3rem;
+        }
+
+        .karte-category h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem; font-weight: 400;
+            color: var(--warm-light); margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .karte-item { margin-bottom: 1.8rem; }
+
+        .karte-item h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem; font-weight: 400; margin-bottom: 0.3rem;
+        }
+
+        .karte-item p {
+            color: var(--text-muted); font-size: 0.83rem;
+            font-weight: 300; line-height: 1.6;
+        }
+
+        /* Bar Section */
+        .bar-section {
+            background: var(--bg-tertiary);
+            position: relative;
+        }
+
+        .bar-grid {
+            display: grid; grid-template-columns: 1fr 1.2fr;
+            gap: 4rem; align-items: center;
+        }
+
+        .bar-image {
+            aspect-ratio: 3/4; overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .bar-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        .bar-drinks {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 1.5rem; margin-top: 2.5rem;
+        }
+
+        .bar-drink {
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .bar-drink h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem; font-weight: 400;
+            color: var(--warm-light); margin-bottom: 0.3rem;
+        }
+
+        .bar-drink p {
+            color: var(--text-muted); font-size: 0.8rem;
+            font-weight: 300;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem; margin-top: 3rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 4/3; overflow: hidden; position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        .gallery-item::after {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(10,9,8,0.15);
+            transition: background 0.3s ease; pointer-events: none;
+        }
+
+        .gallery-item:hover::after { background: transparent; }
+
+        /* Kontakt */
+        .kontakt { background: var(--bg-secondary); }
+
+        .kontakt-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; align-items: start;
+        }
+
+        .kontakt-info { display: flex; flex-direction: column; gap: 2.5rem; }
+
+        .kontakt-block h3 {
+            font-family: var(--font-display);
+            font-size: 1.15rem; font-weight: 400;
+            color: var(--warm-light); margin-bottom: 0.8rem;
+        }
+
+        .kontakt-block p, .kontakt-block a {
+            color: var(--text-secondary); font-size: 0.9rem;
+            font-weight: 300; line-height: 1.8; text-decoration: none;
+        }
+
+        .kontakt-block a:hover { color: var(--warm); }
+
+        .hours-table { width: 100%; border-collapse: collapse; }
+        .hours-table tr { border-bottom: 1px solid var(--border); }
+        .hours-table td { padding: 0.55rem 0; font-size: 0.88rem; color: var(--text-secondary); font-weight: 300; }
+        .hours-table td:first-child { color: var(--text-primary); font-weight: 400; }
+        .hours-table td:last-child { text-align: right; }
+        .closed { color: var(--text-muted) !important; font-style: italic; }
+
+        .kontakt-map {
+            aspect-ratio: 4/3; border: 1px solid var(--border); overflow: hidden;
+        }
+
+        .kontakt-map iframe {
+            width: 100%; height: 100%; border: none;
+            filter: grayscale(0.85) contrast(1.1) brightness(0.6) sepia(0.1);
+            transition: filter 0.4s ease;
+        }
+
+        .kontakt-map:hover iframe { filter: grayscale(0.3) contrast(1) brightness(0.8); }
+
+        .footer {
+            padding: 4rem 2rem; text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem; font-weight: 400;
+            color: var(--warm); margin-bottom: 0.5rem;
+        }
+
+        .footer-sub {
+            font-size: 0.7rem; letter-spacing: 0.2em;
+            text-transform: uppercase; color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer p { color: var(--text-muted); font-size: 0.8rem; font-weight: 300; }
+
+        .footer-links {
+            display: flex; justify-content: center;
+            gap: 2rem; margin: 1.5rem 0; list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-muted); text-decoration: none;
+            font-size: 0.78rem; transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover { color: var(--warm); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex; flex-direction: column;
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: rgba(10,9,8,0.98); padding: 2rem; gap: 1.5rem;
+            }
+            .nav-toggle { display: flex; }
+            .wohnzimmer-grid, .kontakt-grid, .karte-grid, .bar-grid { grid-template-columns: 1fr; }
+            .drei-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            section { padding: 5rem 1.5rem; }
+            .nav { padding: 1rem 1.5rem; }
+        }
+    </style>
 </head>
 <body>
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo"><span>Hackethals</span> Berlin</a>
-    <div class="nav-links">
-      <a href="#geschichte">Geschichte</a>
-      <a href="#karte">Karte</a>
-      <a href="#kontakt">Kontakt</a>
-      <a href="#kontakt" class="nav-res">Reservieren</a>
-    </div>
-  </div>
-</nav>
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span>Bar &amp; Restaurant · Pflugstraße 11 · Berlin-Mitte</span>
-    </div>
-    <h1 class="hero-title">Hacke<br><em>thals</em></h1>
-    <p class="hero-sub">Ein echtes Berliner Original — ehrliche Küche, handgemixte Drinks, eine Atmosphäre die zum Verweilen einlädt. Seit 15+ Jahren das Herz von Mitte.</p>
-    <div class="hero-ctas">
-      <a href="#karte" class="btn-amber">Zur Karte</a>
-      <a href="#kontakt" class="btn-ghost">Reservieren</a>
-    </div>
-  </div>
-</section>
-<div class="stat-band">
-  <div class="stat-inner">
-    <div class="stat-item">
-      <div class="stat-num"><span>15</span>+</div>
-      <div class="stat-label">Jahre in Mitte</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">18<span>:30</span></div>
-      <div class="stat-label">Täglich ab</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">★<span>4.7</span></div>
-      <div class="stat-label">Google Rating</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num"><span>Mo</span>–Fr</div>
-      <div class="stat-label">Geöffnet</div>
-    </div>
-  </div>
-</div>
-<section id="geschichte">
-  <div class="section-inner">
-    <div class="story-grid">
-      <div class="story-img">
-        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=85&auto=format&fit=crop" alt="Hackethals Berlin Bar">
-      </div>
-      <div class="story-text">
-        <div class="section-label">Geschichte</div>
-        <h2 class="section-title">Wo Berlin<br><em>zusammenkommt</em></h2>
-        <p>Hackethals ist ein echtes Berliner Original — eine Bar und ein Restaurant, die seit Jahren das Herz von Mitte schlagen lassen. Die Pflugstraße 11 ist kein Ort, den man zufällig betritt. Man kommt hierher, weil man weiß, was man bekommt.</p>
-        <p>Ehrliche Küche. Handgemixte Drinks. Eine Atmosphäre, die zum Verweilen einlädt. Kein Schnickschnack, keine Inszenierung — nur das Wesentliche, und das in höchster Qualität.</p>
-        <div class="story-facts">
-          <div class="fact-row">
-            <span class="fact-icon">🍸</span>
-            <span class="fact-text"><strong>Handgemixte Cocktails</strong> — klassisch und hausgemacht</span>
-          </div>
-          <div class="fact-row">
-            <span class="fact-icon">🍽</span>
-            <span class="fact-text"><strong>Ehrliche Küche</strong> — saisonal, lokal, ohne Kompromiss</span>
-          </div>
-          <div class="fact-row">
-            <span class="fact-icon">⭐</span>
-            <span class="fact-text"><strong>4.7 Google-Rating</strong> — über 15 Jahre Stammgäste</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="karte" style="padding-top:0">
-  <div class="section-inner">
-    <div style="text-align:center;margin-bottom:48px">
-      <div class="section-label">Karte</div>
-      <h2 class="section-title">Küche &amp; <em>Bar</em></h2>
-      <p style="margin-top:16px;font-size:16px;color:var(--text);max-width:520px;margin-inline:auto;line-height:1.8">Täglich frisch — ehrliche Küche ohne Schnickschnack, handgemixte Cocktails ohne Fertigmix.</p>
-    </div>
-    <div class="menu-grid">
-      <div class="menu-card" data-n="01">
-        <div class="menu-tag">Suppe</div>
-        <div class="menu-name">Tagessuppe</div>
-        <div class="menu-desc">Täglich frisch nach Saison und Marktangebot — fragen Sie unser Team nach dem Tagesgericht</div>
-        <div class="menu-price">ab € 7</div>
-      </div>
-      <div class="menu-card" data-n="02">
-        <div class="menu-tag">Hauptgang</div>
-        <div class="menu-name">Berliner Schnitzel</div>
-        <div class="menu-desc">Goldbraun gebraten, mit Bratkartoffeln und hausgemachtem Salat — Berliner Hausmannskost</div>
-        <div class="menu-price">ab € 16</div>
-      </div>
-      <div class="menu-card" data-n="03">
-        <div class="menu-tag">Pasta</div>
-        <div class="menu-name">Pasta della Casa</div>
-        <div class="menu-desc">Selbstgemachte Pasta, wechselnde Sauce nach Markt und Saison, Parmesan, frische Kräuter</div>
-        <div class="menu-price">ab € 14</div>
-      </div>
-      <div class="menu-card" data-n="04">
-        <div class="menu-tag">Bar · Klassiker</div>
-        <div class="menu-name">Hackethals Sour</div>
-        <div class="menu-desc">Hauscocktail — frisch gepresste Zitrusfrüchte, Bitters, Eiweißschaum, Saison-Spirits</div>
-        <div class="menu-price">€ 12</div>
-      </div>
-      <div class="menu-card" data-n="05">
-        <div class="menu-tag">Bar · Signature</div>
-        <div class="menu-name">Berliner Negroni</div>
-        <div class="menu-desc">Berliner Gin, Süßwermut, Campari, Orangenzeste — gereift in der hauseigenen Eiche</div>
-        <div class="menu-price">€ 14</div>
-      </div>
-      <div class="menu-card" data-n="06">
-        <div class="menu-tag">Dessert</div>
-        <div class="menu-name">Käseplatte</div>
-        <div class="menu-desc">Auswahl europäischer Käse, hausgemachtes Chutney, Trauben, Nüsse, Sauerteigbrot</div>
-        <div class="menu-price">€ 18</div>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="quote-band">
-  <div class="quote-inner">
-    <p class="quote-text">„Kein Schnickschnack, keine Inszenierung — nur das <strong>Wesentliche</strong>, in höchster Qualität."</p>
-    <p class="quote-attr">— Hackethals Berlin · Pflugstraße 11 · Berlin-Mitte</p>
-  </div>
-</div>
 
-<section id="galerie" class="alt-bg" style="padding:100px 0">
-<div class="container">
-<div class="section-header center">
-<div class="section-label">Galerie</div>
-<h2 class="section-title">Impressionen</h2>
-</div>
-<div class="gallery-grid">
-<div class="gallery-item animate-on-scroll"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&q=80" alt="Impressionen" loading="lazy"></div>
-<div class="gallery-item animate-on-scroll"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80" alt="Impressionen" loading="lazy"></div>
-<div class="gallery-item animate-on-scroll"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" alt="Impressionen" loading="lazy"></div>
-<div class="gallery-item animate-on-scroll"><img src="https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=800&q=80" alt="Impressionen" loading="lazy"></div>
-<div class="gallery-item animate-on-scroll"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&q=80" alt="Impressionen" loading="lazy"></div>
-<div class="gallery-item animate-on-scroll"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&q=80" alt="Impressionen" loading="lazy"></div>
-</div>
-</div>
-</section>
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">Hackethal's</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#wohnzimmer">Das Haus</a></li>
+            <li><a href="#konzept">Konzept</a></li>
+            <li><a href="#karte">Speisekarte</a></li>
+            <li><a href="#bar">Bar</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
 
-<section id="bewertungen" style="padding:100px 0">
-<div class="container">
-<div class="section-header center">
-<div class="section-label">Bewertungen</div>
-<h2 class="section-title">Das sagen unsere Kunden</h2>
-<p class="section-desc">Überzeugen Sie sich selbst von der Qualität unserer Arbeit.</p>
-</div>
-<div class="reviews-grid">
-<div class="review-card animate-on-scroll" style="background:var(--bg-soft,#f8f9fc);border:1px solid var(--border,#e8eaef)">
-<div class="review-stars">★★★★★</div>
-<p class="review-text">„Hervorragendes Essen und ein wunderbarer Service. Wir kommen definitiv wieder!“</p>
-<div class="review-author">M. Schmidt</div>
-<div class="review-source">Google Bewertung</div>
-</div>
-<div class="review-card animate-on-scroll" style="background:var(--bg-soft,#f8f9fc);border:1px solid var(--border,#e8eaef)">
-<div class="review-stars">★★★★★</div>
-<p class="review-text">„Die Atmosphäre ist einzigartig. Perfekt für besondere Anlässe.“</p>
-<div class="review-author">K. Weber</div>
-<div class="review-source">TripAdvisor Bewertung</div>
-</div>
-<div class="review-card animate-on-scroll" style="background:var(--bg-soft,#f8f9fc);border:1px solid var(--border,#e8eaef)">
-<div class="review-stars">★★★★★</div>
-<p class="review-text">„Eines der besten Restaurants der Stadt. Die Weinauswahl ist erstklassig.“</p>
-<div class="review-author">L. Fischer</div>
-<div class="review-source">Google Bewertung</div>
-</div>
-</div>
-</div>
-</section>
-<section id="kontakt">
-  <div class="section-inner">
-    <div style="margin-bottom:48px">
-      <div class="section-label">Kontakt &amp; Reservierung</div>
-      <h2 class="section-title">Besuchen Sie <em>uns</em></h2>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-map-wrap">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.2!2d13.3866!3d52.5265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e2d7de7f8d9%3A0x1!2sPflugstra%C3%9Fe+11%2C+10115+Berlin!5e0!3m2!1sde!2sde!4v1" allowfullscreen="" loading="lazy"></iframe>
-      </div>
-      <div class="contact-info">
-        <div>
-          <div class="ci-label">Adresse</div>
-          <div class="ci-val">Pflugstraße 11<br>10115 Berlin-Mitte</div>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-tagline">Gaststätte &middot; Bar &middot; Wohnzimmer</span>
+            <h1 class="hero-title">Dein zweites <em>Wohnzimmer</em> in Mitte</h1>
+            <p class="hero-subtitle">Deutsche Küche mit Seele, gute Drinks und die Gemütlichkeit, die man in Berlin zu selten findet. Hackethal's — ehrlich, warm, unkompliziert.</p>
+            <div class="hero-btns">
+                <a href="#karte" class="btn-warm">Speisekarte</a>
+                <a href="#bar" class="btn-ghost">Drinks & Bar</a>
+            </div>
         </div>
-        <div>
-          <div class="ci-label">Öffnungszeiten</div>
-          <div class="hours-grid">
-            <div class="hours-row">Mo – Fr</div><div class="hours-row">ab 18:30 Uhr</div>
-            <div class="hours-row">Sa – So</div><div class="hours-row">Ruhetag</div>
-          </div>
-        </div>
-        <div>
-          <div class="ci-label">Reservierung</div>
-          <div class="ci-val">Empfohlen — besonders Do/Fr</div>
-        </div>
-        <div class="contact-ctas">
-          <a href="#karte" class="btn-amber">Zur Karte</a>
-          <a href="https://maps.google.com/?q=Pflugstrasse+11+Berlin" target="_blank" class="btn-ghost">Anfahrt</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand"><span>Hackethals</span> Berlin</div>
-    <div class="footer-links">
-      <a href="#geschichte">Geschichte</a>
-      <a href="#karte">Karte</a>
-      <a href="#kontakt">Kontakt</a>
-    </div>
-    <div class="footer-copy">&copy; 2026 Hackethals · Pflugstraße 11 · 10115 Berlin</div>
-  </div>
-</footer>
-<div class="mobile-bar">
-  <div class="mobile-bar-inner">
-    <a href="https://maps.google.com/?q=Pflugstrasse+11+Berlin" target="_blank" class="mb-call">Anfahrt</a>
-    <a href="#karte" class="mb-res">Zur Karte</a>
-  </div>
-</div>
-<script>
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, {passive: true});
-</script>
+    </section>
 
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  var toggle=document.querySelector('.mobile-toggle');
-  var nav=document.querySelector('.nav-links');
-  if(toggle&&nav){toggle.addEventListener('click',function(){nav.classList.toggle('open');toggle.classList.toggle('active')})}
-  var observer=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('animate-in');observer.unobserve(e.target)}})
-  },{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
-  document.querySelectorAll('.animate-on-scroll').forEach(function(el){observer.observe(el)});
-  var navbar=document.querySelector('nav');
-  window.addEventListener('scroll',function(){
-    var st=window.scrollY;
-    if(navbar){if(st>50)navbar.classList.add('scrolled');else navbar.classList.remove('scrolled')}
-  });
-  document.querySelectorAll('.counter').forEach(function(counter){
-    var obs2=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){
-          var target=+e.target.dataset.target;
-          var suffix=e.target.dataset.suffix||'';
-          var dur=1500;var start=performance.now();
-          var animate=function(now){
-            var elapsed=now-start;var progress=Math.min(elapsed/dur,1);
-            var eased=1-Math.pow(1-progress,3);
-            e.target.textContent=Math.round(target*eased).toLocaleString('de-DE');
-            if(progress<1)requestAnimationFrame(animate);
-            else e.target.textContent=target.toLocaleString('de-DE')+suffix;
-          };
-          requestAnimationFrame(animate);obs2.unobserve(e.target);
-        }
-      });
-    },{threshold:0.5});
-    obs2.observe(counter);
-  });
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener('click',function(e){
-      e.preventDefault();
-      var target=document.querySelector(a.getAttribute('href'));
-      if(target){target.scrollIntoView({behavior:'smooth',block:'start'})}
-      if(nav&&nav.classList.contains('open')){nav.classList.remove('open');if(toggle)toggle.classList.remove('active')}
-    });
-  });
-  var hero=document.querySelector('.hero-img,.hero-visual,.hero');
-  if(hero&&window.innerWidth>768){
-    window.addEventListener('scroll',function(){
-      var st=window.scrollY;
-      if(st<800){hero.style.transform='translateY('+st*0.15+'px)'}
-    });
-  }
-  document.querySelectorAll('.gallery-item').forEach(function(item){
-    item.addEventListener('click',function(){
-      var img=item.querySelector('img');
-      if(!img)return;
-      var src=img.src;
-      var overlay=document.createElement('div');
-      overlay.className='lightbox-overlay';
-      overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:10000;display:flex;align-items:center;justify-content:center;cursor:pointer;animation:fadeIn .3s';
-      var content=document.createElement('div');
-      content.className='lightbox-content';
-      var lbImg=document.createElement('img');
-      lbImg.src=src;
-      lbImg.alt='Gallery';
-      lbImg.style.cssText='max-width:90vw;max-height:85vh;border-radius:8px;object-fit:contain';
-      var closeBtn=document.createElement('button');
-      closeBtn.className='lightbox-close';
-      closeBtn.textContent='\u00D7';
-      closeBtn.style.cssText='position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:2.5rem;cursor:pointer;line-height:1';
-      content.appendChild(lbImg);
-      content.appendChild(closeBtn);
-      overlay.appendChild(content);
-      overlay.addEventListener('click',function(){overlay.remove()});
-      document.body.appendChild(overlay);
-    });
-  });
-  var btt=document.createElement('button');
-  btt.textContent='\u2191';
-  btt.className='back-to-top';
-  btt.style.cssText='position:fixed;bottom:32px;right:32px;width:48px;height:48px;border-radius:50%;border:none;background:var(--accent,#333);color:#fff;font-size:1.2rem;cursor:pointer;opacity:0;transform:translateY(20px);transition:all .3s;z-index:9000;box-shadow:0 4px 20px rgba(0,0,0,.2)';
-  document.body.appendChild(btt);
-  btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
-  window.addEventListener('scroll',function(){
-    if(window.scrollY>600){btt.style.opacity='1';btt.style.transform='translateY(0)'}
-    else{btt.style.opacity='0';btt.style.transform='translateY(20px)'}
-  });
-});
-</script>
+    <!-- Wohnzimmer -->
+    <section class="wohnzimmer" id="wohnzimmer">
+        <div class="container">
+            <div class="wohnzimmer-grid">
+                <div class="wohnzimmer-image">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80" alt="Hackethal's Gastraum" loading="lazy">
+                </div>
+                <div>
+                    <p class="section-label">Unser Haus</p>
+                    <h2 class="section-title">Mehr als eine Gaststätte</h2>
+                    <div class="accent-line"></div>
+                    <p class="section-text">
+                        Hackethal's ist Gaststätte, Bar und Wohnzimmer in einem. In der
+                        Pflugstraße im Herzen von Berlin-Mitte haben wir einen Ort geschaffen,
+                        der sich anfühlt wie nach Hause kommen — nur mit besserem Essen
+                        und besseren Drinks.
+                    </p>
+                    <br>
+                    <p class="section-text">
+                        Unsere Küche ist ehrlich deutsch, saisonal inspiriert und mit
+                        Liebe zubereitet. Dazu eine handverlesene Weinkarte und
+                        Cocktails, die den Abend perfekt machen. Kein Schnickschnack,
+                        nur Substanz.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Konzept / Drei Säulen -->
+    <section id="konzept">
+        <div class="container" style="text-align: center;">
+            <p class="section-label">Das Konzept</p>
+            <h2 class="section-title">Drei Räume, ein Gefühl</h2>
+            <div class="accent-line accent-line-center"></div>
+            <div class="drei-grid">
+                <div class="drei-card">
+                    <span class="drei-card-icon">&#127869;</span>
+                    <h3>Gaststätte</h3>
+                    <p>Ehrliche deutsche Küche — von der Schnitzel-Perfektion bis zum saisonalen Überraschungsmenü. Kochen mit Herz und Handwerk.</p>
+                </div>
+                <div class="drei-card">
+                    <span class="drei-card-icon">&#127864;</span>
+                    <h3>Bar</h3>
+                    <p>Handgemixte Cocktails, eine kuratierte Weinkarte und regionale Craft-Biere. Der perfekte Ort für den Digestif oder den ganzen Abend.</p>
+                </div>
+                <div class="drei-card">
+                    <span class="drei-card-icon">&#128715;</span>
+                    <h3>Wohnzimmer</h3>
+                    <p>Gemütliche Ecken, warmes Licht und die Atmosphäre, die man sich wünscht. Ankommen, zurücklehnen, genießen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speisekarte -->
+    <section class="karte" id="karte">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <p class="section-label">Aus der Küche</p>
+                <h2 class="section-title">Unsere Karte</h2>
+                <div class="accent-line accent-line-center"></div>
+            </div>
+            <div class="karte-grid">
+                <div class="karte-category">
+                    <h3>Vorspeisen & Snacks</h3>
+                    <div class="karte-item">
+                        <h4>Tatar vom Rind</h4>
+                        <p>Von Hand geschnitten mit Eigelb, Kapern und geröstetem Sauerteig</p>
+                    </div>
+                    <div class="karte-item">
+                        <h4>Gebackener Camembert</h4>
+                        <p>Mit Preiselbeeren, Walnüssen und frischem Brot</p>
+                    </div>
+                    <div class="karte-item">
+                        <h4>Saisonale Suppe</h4>
+                        <p>Täglich frisch zubereitet — fragen Sie unser Team</p>
+                    </div>
+                    <div class="karte-item">
+                        <h4>Flammkuchen Elsässer Art</h4>
+                        <p>Dünn und knusprig mit Schmand, Speck und Zwiebeln</p>
+                    </div>
+                </div>
+                <div class="karte-category">
+                    <h3>Hauptgerichte</h3>
+                    <div class="karte-item">
+                        <h4>Wiener Schnitzel vom Kalb</h4>
+                        <p>Buttrig paniert mit Bratkartoffeln und Gurkensalat</p>
+                    </div>
+                    <div class="karte-item">
+                        <h4>Geschmorte Rinderbäckchen</h4>
+                        <p>In Rotwein gegart mit Selleriepüree und glasierten Möhren</p>
+                    </div>
+                    <div class="karte-item">
+                        <h4>Zanderfilet</h4>
+                        <p>Auf Linsengemüse mit Meerrettichschaum und Dill</p>
+                    </div>
+                    <div class="karte-item">
+                        <h4>Saisonales Vegetarisch</h4>
+                        <p>Wechselnde Kreation aus dem besten, was der Markt hergibt</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bar -->
+    <section class="bar-section" id="bar">
+        <div class="container">
+            <div class="bar-grid">
+                <div>
+                    <p class="section-label">Nach dem Essen</p>
+                    <h2 class="section-title">Die Bar</h2>
+                    <div class="accent-line"></div>
+                    <p class="section-text">
+                        Ob als Auftakt zum Abend oder als krönender Abschluss —
+                        unsere Bar ist der Ort für gute Gespräche und noch bessere Drinks.
+                        Klassische Cocktails, handverlesene Weine und regionale Biere
+                        in einer Atmosphäre, die zum Bleiben einlädt.
+                    </p>
+                    <div class="bar-drinks">
+                        <div class="bar-drink">
+                            <h4>Negroni</h4>
+                            <p>Der Klassiker, perfekt ausbalanciert</p>
+                        </div>
+                        <div class="bar-drink">
+                            <h4>Aperol Spritz</h4>
+                            <p>Frisch und leicht für laue Abende</p>
+                        </div>
+                        <div class="bar-drink">
+                            <h4>Old Fashioned</h4>
+                            <p>Bourbon, Angostura, Orange</p>
+                        </div>
+                        <div class="bar-drink">
+                            <h4>Weinkarte</h4>
+                            <p>Kuratierte Auswahl, deutsch & international</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bar-image">
+                    <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&q=80" alt="Bar Hackethal's" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie -->
+    <section id="galerie">
+        <div class="container" style="text-align: center;">
+            <p class="section-label">Atmosphäre</p>
+            <h2 class="section-title">So sieht's bei uns aus</h2>
+            <div class="accent-line accent-line-center"></div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" alt="Gastraum" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Gericht" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&q=80" alt="Bar" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="Essen" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=800&q=80" alt="Drinks" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Interior" loading="lazy"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="kontakt" id="kontakt">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <p class="section-label">Schau vorbei</p>
+                <h2 class="section-title">Kontakt & Öffnungszeiten</h2>
+                <div class="accent-line accent-line-center"></div>
+            </div>
+            <div class="kontakt-grid">
+                <div class="kontakt-info">
+                    <div class="kontakt-block">
+                        <h3>Adresse</h3>
+                        <p>Pflugstraße 11<br>10115 Berlin Mitte</p>
+                    </div>
+                    <div class="kontakt-block">
+                        <h3>Kontakt</h3>
+                        <p><a href="tel:+493028387765">+49 30 2838 7765</a></p>
+                        <p><a href="https://www.hackethals.de" target="_blank">hackethals.de</a></p>
+                    </div>
+                    <div class="kontakt-block">
+                        <h3>Öffnungszeiten</h3>
+                        <table class="hours-table">
+                            <tr><td>Montag</td><td>12:30 – 14:30 &amp; 18:30 – 00:00</td></tr>
+                            <tr><td>Dienstag</td><td>12:30 – 14:30 &amp; 18:30 – 00:00</td></tr>
+                            <tr><td>Mittwoch</td><td>12:30 – 14:30 &amp; 18:30 – 00:00</td></tr>
+                            <tr><td>Donnerstag</td><td>12:30 – 14:30 &amp; 18:30 – 00:00</td></tr>
+                            <tr><td>Freitag</td><td>12:30 – 14:30 &amp; 18:30 – 00:00</td></tr>
+                            <tr><td>Samstag</td><td class="closed">Geschlossen</td></tr>
+                            <tr><td>Sonntag</td><td>18:00 – 00:00</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="kontakt-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.6!2d13.3845!3d52.5312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851e89c1f14cd%3A0x3b0e9a2f8a4c2e1d!2sHackethal's!5e0!3m2!1sde!2sde!4v1700000000000!5m2!1sde!2sde" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Standort Hackethal's"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">Hackethal's</div>
+        <div class="footer-sub">Gaststätte &middot; Bar &middot; Wohnzimmer</div>
+        <ul class="footer-links">
+            <li><a href="#wohnzimmer">Das Haus</a></li>
+            <li><a href="#karte">Karte</a></li>
+            <li><a href="#bar">Bar</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+        <p>Pflugstraße 11 &middot; 10115 Berlin &middot; +49 30 2838 7765</p>
+        <p style="margin-top: 0.5rem;">&copy; 2026 Hackethal's. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80));
+
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+        navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
 </body>
 </html>
